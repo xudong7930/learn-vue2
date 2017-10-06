@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>learn vue2</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <p>your input is: {{ message }}</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'hello, vue2.0'
+            }
+        })
+    </script>
+</body>
+</html>
