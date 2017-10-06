@@ -17,6 +17,13 @@
             <input type="text" v-model="newName">
             <button type="button" @click="addName">Add Name</button>
         </div>
+
+        <h2>data bingding</h2>
+        <div class="#">
+            <p :class="className">You cannot change the circumstances but you can change
+yourself. That is something you have charge of.</p>
+            <button :class="{'btn btn-danger': isDanger}">click me</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
@@ -28,7 +35,9 @@
             data: {
                 message: 'hello, vue2.0',
                 names: ['john', 'mary', 'sue'],
-                newName: ''
+                newName: '',
+                className: 'text-success',
+                isDanger: true
             },
             methods: {
                 addName() {
