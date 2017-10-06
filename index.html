@@ -3,21 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>learn vue2</title>
+    <link rel="stylesheet" href="https://ehd4.f3322.net/youtube/bootstrap337/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="container">
         <input type="text" v-model="message">
         <p>your input is: {{ message }}</p>
+        
+        <ul class="list-group">
+            <li class="list-group-item" v-for="name in names">{{ name }}</li>
+        </ul>
+        <div class="#">
+            <input type="text" v-model="newName">
+            <button type="button" @click="addName">Add Name</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
     <script type="text/javascript">
+        Vue.config.devtools = true;
+
         new Vue({
             el: '#app',
             data: {
-                message: 'hello, vue2.0'
+                message: 'hello, vue2.0',
+                names: ['john', 'mary', 'sue'],
+                newName: ''
+            },
+            methods: {
+                addName() {
+                    if (this.newName) {
+                        this.names.push(this.newName);
+                        this.newName = '';
+                    }
+                }
             }
-        })
+        }); 
     </script>
 </body>
 </html>
