@@ -44,10 +44,43 @@ yourself. That is something you have charge of.</p>
                 <li v-for="task in incomplteTasks">{{ task.title }}</li>
             </ul>
         </div>
+
+        <h3>Component</h3>
+        <div class="#">
+            <task>learn to vue2.4.4</task>
+            <p>
+                <task-list></task-list>
+            </p>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
     <script type="text/javascript">
+        Vue.component('task', {
+            template: '<li><slot></slot></li>'
+        });
+
+        Vue.component('task-list', {
+            template: `
+            <div class="wrapper-task">
+                <task v-for="item in items">{{ item.title }}</task>
+            </div>
+            `,
+            data() {
+                return {
+                    items: [
+                        {title: 'wash your hands', complete: true},
+                        {title: 'learn to code', complete: false},
+                        {title: 'go to shopping buy an xiangzhao', complete: false},
+                        {title: 'send an message to haoshuyun', complete: false},
+                        {title: 'check you email and again', complete: true},
+                        {title: 'close your eyes and things', complete: false},
+                        {title: 'cooking nuddles', complete: false}
+                    ]
+                }
+            }
+        });
+
         Vue.config.devtools = true;
 
         new Vue({
