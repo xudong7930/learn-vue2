@@ -15,7 +15,7 @@
         </ul>
         <div class="#">
             <input type="text" v-model="newName">
-            <button type="button" @click="addName">Add Name</button>
+            <button type="button" class="btn btn-primary" @click="addName">Add Name</button>
         </div>
 
         <h2>data bingding</h2>
@@ -23,6 +23,26 @@
             <p :class="className">You cannot change the circumstances but you can change
 yourself. That is something you have charge of.</p>
             <button :class="{'btn btn-danger': isDanger}">click me</button>
+        </div>
+
+        <h2>Computed properties</h2>
+        <div class="#">
+            <h3>All Tasks</h3>
+            <ul>
+                <li v-for="task in tasks">{{ task.title }}</li>
+            </ul>
+
+            <hr>
+
+            <h3>Complete Tasks</h3>
+            <ul>
+                <li v-for="task in tasks" v-if="task.complete">{{ task.title }}</li>
+            </ul>
+
+            <h3>InComplete Tasks</h3>
+            <ul>
+                <li v-for="task in incomplteTasks">{{ task.title }}</li>
+            </ul>
         </div>
     </div>
 
@@ -37,7 +57,23 @@ yourself. That is something you have charge of.</p>
                 names: ['john', 'mary', 'sue'],
                 newName: '',
                 className: 'text-success',
-                isDanger: true
+                isDanger: true,
+                tasks: [
+                    {title: 'wash your hands', complete: true},
+                    {title: 'learn to code', complete: false},
+                    {title: 'go to shopping buy an xiangzhao', complete: false},
+                    {title: 'send an message to haoshuyun', complete: false},
+                    {title: 'check you email and again', complete: true},
+                    {title: 'close your eyes and things', complete: false},
+                    {title: 'cooking nuddles', complete: false}
+                ]
+            },
+            computed: {
+                incomplteTasks() {
+                    return this.tasks.filter(function(task){
+                        return !task.complete;
+                    });
+                }
             },
             methods: {
                 addName() {
