@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-components-contact-eventdispatch</title>
+    <link rel="stylesheet" href="../bulma.css">
+    <style>.container { padding: 40px }</style>
+    <script src="../vue.min.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- applied 内部emit通知, onCopuonApplied外部通知 -->
+        <coupon @applied="onCouponApplied"></coupon>
+        <div v-if="isApply">your coupon applied!</div>
+    </div>
+
+    <script>
+        Vue.config.devtools = true;
+
+        // share events on vue.
+        window.CEvent = new Vue();
+        window.MEvent = new class {
+            constructor () {
+                this.vue = new Vue();
+            }
+
+            fire (event, data = null) {
+                this.vue.$emit(event, data);
+            }
+
+            listen (event, callback) {
+                this.vue.$on(event, callback);
+            }
+        }
+
+        Vue.component('coupon', {
+            template: `
+                <div>
+                    <input type="text" v-model="couponCode"/>
+                    <button @click="couponApplied">Apply</button>
+                </div>
+            `,
+            methods: {
+                couponApplied () {
+                    if (! this.couponCode) {
+                        return alert('please input your coupon code');
+                    }
+                    CEvent.$emit('applied', this.couponCode);
+                    MEvent.fire('applied', this.couponCode);
+                }
+            },
+            data () {
+                return {
+                    couponCode: ''
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                isApply: false
+            },
+            methods: {
+                onCouponApplied (code) {
+                    // alert('applied: ' + code)
+                    this.isApply = true;
+                }
+            },
+            created () {
+                CEvent.$on('applied', (code) => {
+                    alert('CEvent applied:'+code);
+                });
+
+                MEvent.listen('applied', (code) => {
+                    alert('MEvent applied: ' + code);
+                })
+            }
+        });
+    </script>
+</body>
+</html>
