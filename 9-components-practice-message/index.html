@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>9 components practice message</title>
+    <link rel="stylesheet" href="../bulma.css">
+    <style>.container { padding: 40px; }</style>
+    <script src="../vue.min.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <message title="hello, message" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit"></message>
+
+        <message title="system info" content="you have been login."></message>
+    </div>
+    <script>
+        Vue.config.devtools = true;
+
+        Vue.component('message', {
+            props: [
+                'title',
+                'content'
+            ],
+            template: `
+            <article class="message" v-show="visible">
+                <div class="message-header">
+                    <p>{{ title }}</p>
+                    <button class="delete" aria-label="delete" @click="closeModel"></button>
+                </div>
+                <div class="message-body">{{ content }}</div>
+            </article>
+            `,
+            data () {
+                return {
+                    visible: true
+                }
+            },
+            methods: {
+                closeModel () {
+                    this.visible = false;
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            }
+        });
+
+    </script>
+</body>
+</html>

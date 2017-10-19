@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>8 components within components</title>
+    <script src="../vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <task-list></task-list>
+    </div>
+    <script>
+        Vue.config.devtools = true;
+
+        // define a component
+        Vue.component('task-list', {
+            // 组件的template必须有一个root元素
+            template: `
+                <div class="wrapper-task">
+                    <task v-for="task in tasks">{{ task.desc }}</task>
+                </div>
+            `,
+            // data 采用对象返回
+            data () {
+                return {
+                    tasks: [
+                        {desc: 'go to the store', completed: true},
+                        {desc: 'finish screencast', completed: true},
+                        {desc: 'make donation', completed: false},
+                        {desc: 'clear inbox', completed: false},
+                        {desc: 'make dinner', completed: true},
+                        {desc: 'clean room', completed: false},
+                    ]
+                }
+            }
+        });
+
+        Vue.component('task', {
+            template: '<li><slot></slot></li>'
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            }
+        });
+
+    </script>
+</body>
+</html>

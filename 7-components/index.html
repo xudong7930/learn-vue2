@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>7 components</title>
+    <script src="../vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <task>go to store</task>
+        <task>learn coding</task>
+        <task>wash clothes</task>
+    </div>
+    <script>
+        Vue.config.devtools = true;
+
+        // define a component
+        Vue.component('task', {
+            template: `
+                <li>{{ message }}: <slot></slot></li>
+            `,
+            data () {
+                return {
+                    message: 'item'
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6 computed property</title>
+    <script src="../vue.min.js"></script>
+    <style>
+        .text-muted{color:#777}.text-primary{color:#337ab7}.text-success{color:#3c763d}.text-info{color:#31708f}.text-warning{color:#8a6d3b}.text-danger{color:#a94442}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 v-text="new Date()"></h1>
+        <h1>{{ message }}</h1>
+        <h2>{{ message.split('').reverse().join('')}}</h2>
+        <h3>{{ reverseMessage }}</h3>
+
+        <h1>task complted:</h1>
+        <ul>
+            <li v-for="task in tasks" v-if="task.completed">{{ task.desc }}</li>
+        </ul>
+
+        <hr>
+
+        <h1>uncomplted task</h1>
+        <ul>
+            <li v-for="task in inComplteTasks">{{ task.desc}}</li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.devtools = true;
+
+        // 在console里面打印app变量: app.names.push("sbjsw")
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello,world',
+                tasks: [
+                    {desc: 'go to the store', completed: true},
+                    {desc: 'finish screencast', completed: true},
+                    {desc: 'make donation', completed: false},
+                    {desc: 'clear inbox', completed: false},
+                    {desc: 'make dinner', completed: true},
+                    {desc: 'clean room', completed: false},
+                ]
+            },
+            computed: {
+                reverseMessage () {
+                    return this.message.split('').reverse().join('');
+                },
+                inComplteTasks () {
+                    return this.tasks.filter(function(item){
+                        return !item.completed;
+                    })
+                }
+            },
+            methods: {
+
+            }
+        })
+
+    </script>
+</body>
+</html>
