@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>18-work-with-axios</title>
+    <link rel="stylesheet" href="../bulma.css">
+    <script src="../vue.min.js"></script>
+    <script src="../axios.min.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>my skills:</h1>
+        <ul>
+            <li v-for="skill in skills">{{ skill }}</li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.devtools = true;
+
+        new Vue({
+            el: '#app',
+            data: {
+                skills: [],
+            },
+            methods: {
+
+            },
+            created () {
+                console.info('xudong7930');
+                let host = window.location.href + '/skill.php';
+                axios.get(host)
+                    .then(response => {
+                        this.skills = response.data;
+                    });
+            }
+        })
+    </script>
+</body>
+</html>
